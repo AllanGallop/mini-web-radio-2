@@ -1,0 +1,7 @@
+http://uk3.internet-radio.com:8347/stream?type=.mp3
+https://media-ssl.musicradio.com/SmoothLondonMP3
+https://media-ssl.musicradio.com/HeartUKMP3
+http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_med/ak/bbc_radio_one.m3u8
+http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_med/ak/bbc_radio_two.m3u8
+https://2000.streeemer.com/listen/2000s/radio.aac
+https://securestreams6.autopo.st:2516/main

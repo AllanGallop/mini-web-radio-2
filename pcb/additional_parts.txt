@@ -1,0 +1,9 @@
+Additional Parts 
+====================
+Quantities per radio:
+
+4x M2x4mm Screw eg (https://www.aliexpress.com/item/32698968734.html)
+1x 18650 Battery Holder eg (https://www.amazon.co.uk/WMYCONGCONG-Battery-Holder-Plastic-Storage/dp/B07QVPD9RB)
+1x 18659 Battery eg (https://www.fogstar-wholesale.co.uk/product/bak-n18650cnp/)
+1x 7mm Rotary Encoder (15 or 20mm) eg (https://www.aliexpress.com/item/10000056483250.html)
+1x 3.5mm Stereo [TRS] 3-Pole Socket eg (https://www.aliexpress.com/item/1005005360132700.html)

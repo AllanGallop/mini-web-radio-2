@@ -11,17 +11,27 @@ const char* PARAM_INPUT_1 = "host"; // HTTP Input param for Host
 const char* PARAM_INPUT_2 = "ssid"; // HTTP Input param for SSID
 const char* PARAM_INPUT_3 = "pass"; // HTTP Input param for Pass
 const char* PARAM_INPUT_4 = "url";  // HTTP Input param for URLs
+const char* PARAM_INPUT_5 = "treb"; // HTTP Input param for URLs
+const char* PARAM_INPUT_6 = "mid";  // HTTP Input param for URLs
+const char* PARAM_INPUT_7 = "bass"; // HTTP Input param for URLs
+
+IPAddress primaryDNS(8, 8, 8, 8);      // Primary DNS server (Google DNS)
+IPAddress secondaryDNS(8, 8, 4, 4);    // Secondary DNS server (Google DNS)
 
 String host;
 String ssid;
 String pass;
 String url;
+int treble = 0;
+int mid    = 0;
+int bass   = 0;
 
 // SPIFFS file paths
 const char* ssidPath = "/ssid.txt";
 const char* passPath = "/pass.txt";
 const char* hostPath = "/host.txt";
 const char* urlPath = "/url.txt";
+const char* tonePath = "/tone.txt";
 
 // Start server on port 80
 AsyncWebServer server(80);
@@ -83,6 +93,16 @@ void Config::apMode()
           // Write file to save value
           writeFile(SPIFFS, urlPath, url.c_str());
         }
+        if (p->name() == PARAM_INPUT_5) {
+          treble = p->value().toInt();
+        }
+        if (p->name() == PARAM_INPUT_6) {
+          mid = p->value().toInt();
+        }
+        if (p->name() == PARAM_INPUT_7) {
+          bass = p->value().toInt();
+        }
+        writeTone(treble, mid, bass);
       }
     }
     request->send(200, "text/plain", "Done. "+host+" will restart");
@@ -101,9 +121,21 @@ void Config::stMode()
   host = readFile(SPIFFS, hostPath);      // Read hostname
   ssid = readFile(SPIFFS, ssidPath);      // Read SSID
   pass = readFile(SPIFFS, passPath);      // Read Password
+  String toneValues = readFile(SPIFFS, tonePath); // Read tone values from CSV
+
+  // Parse CSV
+  if (!toneValues.isEmpty()) {
+    int comma1 = toneValues.indexOf(',');
+    int comma2 = toneValues.indexOf(',', comma1 + 1);
+    treble = toneValues.substring(0, comma1).toInt();
+    mid = toneValues.substring(comma1 + 1, comma2).toInt();
+    bass = toneValues.substring(comma2 + 1).toInt();
+  }
+
   WiFi.disconnect();
   WiFi.mode(WIFI_STA);
   WiFi.setHostname(host.c_str());         // Set Hostname
+  WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, primaryDNS, secondaryDNS);
   WiFi.begin(ssid.c_str(), pass.c_str()); // Start Wifi
   Serial.print("Connecting to:");
   Serial.println(ssid);
@@ -153,4 +185,25 @@ void Config::writeFile(fs::FS &fs, const char * path, const char * message){
   } else {
     Serial.println("- frite failed");
   }
+}
+
+/**
+ * Write treble, mid, bass as CSV to tone.txt
+ */
+void Config::writeTone(int treble, int mid, int bass) {
+  String toneData = String(treble) + "," + String(mid) + "," + String(bass);
+  writeFile(SPIFFS, tonePath, toneData.c_str());
+}
+
+// Getter methods for treble, mid, and bass
+int Config::getTreble() {
+  return treble;
+}
+
+int Config::getMid() {
+  return mid;
+}
+
+int Config::getBass() {
+  return bass;
 }

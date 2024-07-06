@@ -15,6 +15,7 @@ class Radio
     int countLines();
     void setStation(String URL);
     void setVolume(int VOL);
+    void setTone(int hi, int mi, int lo);
     void play();
     void next();
   private:

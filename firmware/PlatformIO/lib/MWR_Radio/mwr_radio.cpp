@@ -51,6 +51,7 @@ void Radio::setStation(String URL)
 {
   Serial.print("Trying:");
   Serial.println(URL);
+  audio.setTone(-10,-5,-1);
   if(audio.isRunning()){
     audio.stopSong();
   }
@@ -64,6 +65,11 @@ void Radio::setStation(String URL)
 void Radio::setVolume(int VOL)
 {
   audio.setVolume(VOL);
+}
+
+void Radio::setTone(int hi, int mi, int lo)
+{
+  audio.setTone(hi,mi,lo);
 }
 
 /**

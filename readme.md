@@ -2,6 +2,8 @@
 
 # Mini Web Radio 2
 
+### [Version 3 now available](https://github.com/AllanGallop/mini-web-radio-3)
+
 Originally designed as a charity project, the MWR is a simple internet radio based on the ESP32 microcontroller. Version 2 builds upon the [original project](https://github.com/AllanGallop/mini-web-radio) introducing stereo audio, supporting multiple channels and utilises a custom PCB with (mostly) surface mount components.
 
 > Be warned, This project is still in the prototype phase
